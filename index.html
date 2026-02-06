@@ -1178,6 +1178,161 @@
         }
 
         /* ══════════════════════════════════════════
+           WORN BY — Customer Reviews
+           ══════════════════════════════════════════ */
+        .reviews {
+            padding: clamp(80px, 10vw, 160px) clamp(24px, 4vw, 64px);
+            border-top: 1px solid var(--graphite);
+        }
+
+        .reviews__header {
+            text-align: center;
+            margin-bottom: clamp(48px, 6vw, 80px);
+        }
+
+        .reviews__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(24px, 4vw, 64px);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .review-card__image {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            background: var(--graphite);
+        }
+
+        .review-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.8s var(--ease-out-expo);
+            filter: contrast(1.02);
+        }
+
+        .review-card:hover .review-card__image img {
+            transform: scale(1.03);
+        }
+
+        .review-card__image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(245, 240, 234, 0.04);
+            pointer-events: none;
+        }
+
+        .review-card__badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-family: var(--font-body);
+            font-size: 9px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--cream);
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 8px 14px;
+            border: 1px solid rgba(245, 240, 234, 0.08);
+        }
+
+        .review-card__content {
+            padding: 28px 0 0;
+        }
+
+        .review-card__stars {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        .review-card__stars svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--sand);
+        }
+
+        .review-card__quote {
+            font-family: var(--font-display);
+            font-size: clamp(18px, 2.2vw, 24px);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.45;
+            color: var(--bone);
+            margin-bottom: 20px;
+        }
+
+        .review-card__author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .review-card__author-line {
+            width: 24px;
+            height: 1px;
+            background: var(--stone);
+        }
+
+        .review-card__author-name {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--warm-grey);
+        }
+
+        .review-card__piece {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--stone);
+            margin-top: 6px;
+            letter-spacing: 0.05em;
+        }
+
+        .review-card__verified {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-body);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-top: 14px;
+        }
+
+        .review-card__verified svg {
+            width: 12px;
+            height: 12px;
+            stroke: var(--sand);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        @media (max-width: 768px) {
+            .reviews__grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+        }
+
+        /* ══════════════════════════════════════════
            FOOTER
            ══════════════════════════════════════════ */
         .footer {
@@ -1781,6 +1936,77 @@
                 <div class="craft__value">
                     <span class="craft__value-number">1</span>
                     <span class="craft__value-label">Uncompromising Vision</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════ WORN BY — CUSTOMER REVIEWS ════════════ -->
+    <section class="reviews" id="reviews">
+        <div class="reviews__header">
+            <p class="section-label reveal">Worn By</p>
+            <h2 class="section-title reveal">Our <em>Clients</em></h2>
+        </div>
+        <div class="reviews__grid reveal-stagger">
+            <!-- Review 1 — Tweed Set -->
+            <div class="review-card" data-cursor>
+                <div class="review-card__image">
+                    <img src="assets/images/PHOTO-2026-02-01-01-20-06 2.jpg"
+                         alt="Customer wearing the IDEALCRAFT MAN Tweed Set" loading="lazy">
+                    <span class="review-card__badge">Verified Buyer</span>
+                </div>
+                <div class="review-card__content">
+                    <div class="review-card__stars">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+                    </div>
+                    <p class="review-card__quote">
+                        "The weight of the tweed, the way it drapes — nothing I've worn comes close.
+                        It feels like wearing a building. Absolute masterpiece."
+                    </p>
+                    <div class="review-card__author">
+                        <span class="review-card__author-line"></span>
+                        <span class="review-card__author-name">David A.</span>
+                    </div>
+                    <p class="review-card__piece">Tweed Cropped Jacket &amp; Wide Trouser — Charcoal</p>
+                    <span class="review-card__verified">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        Verified Purchase
+                    </span>
+                </div>
+            </div>
+
+            <!-- Review 2 — Houndstooth Set -->
+            <div class="review-card" data-cursor>
+                <div class="review-card__image">
+                    <img src="assets/images/PHOTO-2026-02-01-01-20-06.jpg"
+                         alt="Customer wearing the IDEALCRAFT MAN Houndstooth Set" loading="lazy">
+                    <span class="review-card__badge">Verified Buyer</span>
+                </div>
+                <div class="review-card__content">
+                    <div class="review-card__stars">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+                    </div>
+                    <p class="review-card__quote">
+                        "Stopped three times on the street the first day I wore this.
+                        The houndstooth jacket over the wide trousers — it commands attention without trying."
+                    </p>
+                    <div class="review-card__author">
+                        <span class="review-card__author-line"></span>
+                        <span class="review-card__author-name">Marcus T.</span>
+                    </div>
+                    <p class="review-card__piece">Houndstooth Cropped Jacket &amp; Pinstripe Wide Trouser</p>
+                    <span class="review-card__verified">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        Verified Purchase
+                    </span>
                 </div>
             </div>
         </div>
