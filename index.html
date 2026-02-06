@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDEALCRAFT MAN — Architectural Fashion</title>
+    <meta name="description" content="IDEALCRAFT MAN — Luxury fashion house specializing in architectural silhouettes. Tweed & Houndstooth collections crafted for the modern individual.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ══════════════════════════════════════════
+           IDEALCRAFT MAN — Design System
+           Brutalist Luxury / Architectural Fashion
+           ══════════════════════════════════════════ */
+
+        :root {
+            --void: #0a0a0a;
+            --obsidian: #111111;
+            --graphite: #1a1a1a;
+            --concrete: #2a2a2a;
+            --stone: #6b6560;
+            --warm-grey: #9e9890;
+            --sand: #c8c0b5;
+            --bone: #e8e2da;
+            --cream: #f5f0ea;
+            --parchment: #faf7f2;
+
+            --font-display: 'Cormorant Garamond', 'Georgia', serif;
+            --font-body: 'Outfit', 'Helvetica Neue', sans-serif;
+
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+            --nav-height: 64px;
+        }
+
+        /* ── Reset & Base ── */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--stone) var(--void);
+        }
+
+        html::-webkit-scrollbar {
+            width: 6px;
+        }
+        html::-webkit-scrollbar-track {
+            background: var(--void);
+        }
+        html::-webkit-scrollbar-thumb {
+            background: var(--stone);
+            border-radius: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--void);
+            color: var(--cream);
+            overflow-x: hidden;
+            cursor: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::selection {
+            background: var(--sand);
+            color: var(--void);
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: none;
+            border: none;
+            background: none;
+            color: inherit;
+        }
+
+        /* ── Custom Cursor ── */
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--cream);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            mix-blend-mode: difference;
+            transition: transform 0.15s var(--ease-out-expo),
+                        opacity 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor.cursor--active {
+            transform: translate(-50%, -50%) scale(4);
+        }
+
+        .cursor-trail {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(245, 240, 234, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            mix-blend-mode: difference;
+            transition: transform 0.4s var(--ease-out-expo),
+                        opacity 0.3s ease,
+                        width 0.4s var(--ease-out-expo),
+                        height 0.4s var(--ease-out-expo);
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-trail.cursor--active {
+            width: 60px;
+            height: 60px;
+            border-color: rgba(245, 240, 234, 0.15);
+        }
+
+        /* ── Loading Screen ── */
+        .loader {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: var(--void);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 32px;
+            transition: opacity 0.8s var(--ease-in-out),
+                        visibility 0.8s;
+        }
+
+        .loader.loaded {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loader__brand {
+            font-family: var(--font-display);
+            font-size: clamp(24px, 4vw, 42px);
+            font-weight: 300;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--cream);
+            text-indent: 0.4em;
+        }
+
+        .loader__line {
+            width: 120px;
+            height: 1px;
+            background: var(--concrete);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loader__line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: var(--cream);
+            animation: loaderSlide 1.5s var(--ease-in-out) infinite;
+        }
+
+        @keyframes loaderSlide {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* ── Navigation ── */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(24px, 4vw, 64px);
+            transition: background 0.5s ease, backdrop-filter 0.5s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .nav__logo {
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            text-indent: 0.35em;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav__logo:hover {
+            opacity: 0.7;
+        }
+
+        .nav__links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav__links a {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        .nav__links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--cream);
+            transition: width 0.4s var(--ease-out-expo);
+        }
+
+        .nav__links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hamburger */
+        .nav__hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            padding: 8px;
+            cursor: none;
+            z-index: 1001;
+        }
+
+        .nav__hamburger span {
+            display: block;
+            width: 24px;
+            height: 1px;
+            background: var(--cream);
+            transition: transform 0.4s var(--ease-out-expo),
+                        opacity 0.3s ease;
+        }
+
+        .nav__hamburger.active span:first-child {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .nav__hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav__hamburger.active span:last-child {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: var(--void);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s var(--ease-in-out),
+                        visibility 0.5s;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu__links {
+            list-style: none;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .mobile-menu__links a {
+            font-family: var(--font-display);
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease, transform 0.5s var(--ease-out-expo);
+        }
+
+        .mobile-menu.active .mobile-menu__links a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu.active .mobile-menu__links li:nth-child(1) a { transition-delay: 0.1s; }
+        .mobile-menu.active .mobile-menu__links li:nth-child(2) a { transition-delay: 0.15s; }
+        .mobile-menu.active .mobile-menu__links li:nth-child(3) a { transition-delay: 0.2s; }
+        .mobile-menu.active .mobile-menu__links li:nth-child(4) a { transition-delay: 0.25s; }
+        .mobile-menu.active .mobile-menu__links li:nth-child(5) a { transition-delay: 0.3s; }
+
+        /* ── Reveal Animations ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 0.9s var(--ease-out-expo),
+                        transform 0.9s var(--ease-out-expo);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-line {
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: opacity 0.6s ease,
+                        transform 1.2s var(--ease-out-expo);
+        }
+
+        .reveal-line.visible {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        .reveal-stagger > * {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s var(--ease-out-expo),
+                        transform 0.7s var(--ease-out-expo);
+        }
+
+        .reveal-stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
+        .reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.12s; }
+        .reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.19s; }
+        .reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.26s; }
+        .reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.33s; }
+        .reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.40s; }
+
+        .reveal-stagger.visible > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Grain Overlay ── */
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            pointer-events: none;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 128px 128px;
+        }
+
+        /* ══════════════════════════════════════════
+           HERO SECTION
+           ══════════════════════════════════════════ */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        .hero__bg {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        .hero__bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transform: scale(1.08);
+            transition: transform 8s var(--ease-out-expo);
+        }
+
+        .hero.visible .hero__bg img {
+            transform: scale(1);
+        }
+
+        .hero__overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: linear-gradient(
+                to bottom,
+                rgba(10,10,10,0.15) 0%,
+                rgba(10,10,10,0.05) 40%,
+                rgba(10,10,10,0.5) 75%,
+                rgba(10,10,10,0.92) 100%
+            );
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 3;
+            padding: clamp(32px, 6vw, 80px);
+            padding-bottom: clamp(48px, 8vw, 100px);
+            width: 100%;
+        }
+
+        .hero__tag {
+            font-family: var(--font-body);
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--sand);
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s var(--ease-out-expo) 0.6s;
+        }
+
+        .hero.visible .hero__tag {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero__title {
+            font-family: var(--font-display);
+            font-size: clamp(48px, 10vw, 140px);
+            font-weight: 300;
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+            color: var(--cream);
+            margin-bottom: 32px;
+        }
+
+        .hero__title span {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero__title span em {
+            display: block;
+            font-style: italic;
+            transform: translateY(110%);
+            transition: transform 1s var(--ease-out-expo);
+        }
+
+        .hero.visible .hero__title span:nth-child(1) em { transition-delay: 0.3s; }
+        .hero.visible .hero__title span:nth-child(2) em { transition-delay: 0.42s; }
+
+        .hero.visible .hero__title span em {
+            transform: translateY(0);
+        }
+
+        .hero__subtitle {
+            font-family: var(--font-body);
+            font-size: clamp(11px, 1.3vw, 14px);
+            font-weight: 300;
+            letter-spacing: 0.12em;
+            color: var(--warm-grey);
+            max-width: 400px;
+            line-height: 1.7;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s var(--ease-out-expo) 0.9s;
+        }
+
+        .hero.visible .hero__subtitle {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero__scroll {
+            position: absolute;
+            bottom: 32px;
+            right: clamp(24px, 4vw, 64px);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transition: opacity 1s ease 1.4s;
+        }
+
+        .hero.visible .hero__scroll {
+            opacity: 1;
+        }
+
+        .hero__scroll span {
+            font-size: 9px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            writing-mode: vertical-rl;
+            color: var(--warm-grey);
+        }
+
+        .hero__scroll-line {
+            width: 1px;
+            height: 48px;
+            background: var(--stone);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero__scroll-line::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--cream);
+            animation: scrollLine 2s var(--ease-in-out) infinite;
+        }
+
+        @keyframes scrollLine {
+            0% { top: -100%; }
+            50% { top: 100%; }
+            100% { top: 100%; }
+        }
+
+        /* ══════════════════════════════════════════
+           BRAND STATEMENT
+           ══════════════════════════════════════════ */
+        .statement {
+            padding: clamp(80px, 12vw, 180px) clamp(24px, 8vw, 160px);
+            position: relative;
+        }
+
+        .statement__eyebrow {
+            font-family: var(--font-body);
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 40px;
+        }
+
+        .statement__text {
+            font-family: var(--font-display);
+            font-size: clamp(26px, 4.5vw, 64px);
+            font-weight: 300;
+            line-height: 1.25;
+            color: var(--bone);
+            max-width: 1000px;
+            letter-spacing: -0.01em;
+        }
+
+        .statement__text em {
+            font-style: italic;
+            color: var(--sand);
+        }
+
+        .statement__line {
+            width: 80px;
+            height: 1px;
+            background: var(--concrete);
+            margin-top: 60px;
+        }
+
+        /* ══════════════════════════════════════════
+           COLLECTION SECTION
+           ══════════════════════════════════════════ */
+        .collection {
+            padding: clamp(60px, 8vw, 120px) 0;
+        }
+
+        .collection__header {
+            padding: 0 clamp(24px, 4vw, 64px);
+            margin-bottom: clamp(48px, 6vw, 80px);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .collection__header-left {
+            max-width: 600px;
+        }
+
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 5vw, 72px);
+            font-weight: 300;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            color: var(--cream);
+        }
+
+        .section-title em {
+            font-style: italic;
+        }
+
+        .collection__header-right {
+            font-family: var(--font-body);
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            color: var(--warm-grey);
+            text-transform: uppercase;
+            white-space: nowrap;
+            padding-bottom: 8px;
+        }
+
+        /* Collection Tabs */
+        .collection__tabs {
+            display: flex;
+            gap: 0;
+            padding: 0 clamp(24px, 4vw, 64px);
+            margin-bottom: clamp(40px, 5vw, 64px);
+            border-bottom: 1px solid var(--graphite);
+        }
+
+        .collection__tab {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--stone);
+            padding: 16px 32px;
+            position: relative;
+            transition: color 0.4s ease;
+            cursor: none;
+        }
+
+        .collection__tab::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--cream);
+            transform: scaleX(0);
+            transition: transform 0.4s var(--ease-out-expo);
+        }
+
+        .collection__tab.active {
+            color: var(--cream);
+        }
+
+        .collection__tab.active::after {
+            transform: scaleX(1);
+        }
+
+        .collection__tab:hover {
+            color: var(--bone);
+        }
+
+        /* Product Grid */
+        .collection__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            padding: 0 clamp(24px, 4vw, 64px);
+        }
+
+        .collection__panel {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            padding: 0 clamp(24px, 4vw, 64px);
+        }
+
+        .collection__panel[data-panel="houndstooth"] {
+            display: none;
+        }
+
+        .product-card {
+            position: relative;
+            overflow: hidden;
+            background: var(--graphite);
+            aspect-ratio: 3/4;
+            cursor: none;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.8s var(--ease-out-expo),
+                        filter 0.6s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .product-card__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(10,10,10,0.8) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .product-card:hover .product-card__overlay {
+            opacity: 1;
+        }
+
+        .product-card__info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 28px;
+            transform: translateY(10px);
+            opacity: 0;
+            transition: transform 0.5s var(--ease-out-expo),
+                        opacity 0.4s ease;
+        }
+
+        .product-card:hover .product-card__info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .product-card__name {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .product-card__detail {
+            font-family: var(--font-body);
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--warm-grey);
+        }
+
+        .product-card__price {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 300;
+            letter-spacing: 0.08em;
+            color: var(--sand);
+            margin-top: 12px;
+        }
+
+        /* Quick-view button */
+        .product-card__cta {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(245, 240, 234, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: opacity 0.4s ease 0.1s,
+                        transform 0.4s var(--ease-out-expo) 0.1s,
+                        background 0.3s ease;
+        }
+
+        .product-card:hover .product-card__cta {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .product-card__cta:hover {
+            background: var(--cream);
+        }
+
+        .product-card__cta:hover svg {
+            stroke: var(--void);
+        }
+
+        .product-card__cta svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--cream);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        /* ══════════════════════════════════════════
+           EDITORIAL / LOOKBOOK
+           ══════════════════════════════════════════ */
+        .editorial {
+            padding: clamp(80px, 10vw, 160px) 0;
+        }
+
+        .editorial__header {
+            padding: 0 clamp(24px, 4vw, 64px);
+            margin-bottom: clamp(48px, 6vw, 80px);
+        }
+
+        .editorial__marquee-wrap {
+            overflow: hidden;
+            padding: 40px 0;
+            border-top: 1px solid var(--graphite);
+            border-bottom: 1px solid var(--graphite);
+            margin-bottom: clamp(48px, 6vw, 80px);
+        }
+
+        .editorial__marquee {
+            display: flex;
+            gap: 80px;
+            animation: marquee 30s linear infinite;
+            width: max-content;
+        }
+
+        .editorial__marquee span {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 6vw, 80px);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--concrete);
+            white-space: nowrap;
+            letter-spacing: 0.05em;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Asymmetric Lookbook Grid */
+        .editorial__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            padding: 0 clamp(24px, 4vw, 64px);
+        }
+
+        .editorial__item {
+            position: relative;
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .editorial__item--tall {
+            grid-row: span 2;
+        }
+
+        .editorial__item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 1.2s var(--ease-out-expo);
+        }
+
+        .editorial__item:hover img {
+            transform: scale(1.04);
+        }
+
+        .editorial__item-label {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            font-family: var(--font-body);
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--cream);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .editorial__item:hover .editorial__item-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Full-width hero image */
+        .editorial__hero {
+            margin: clamp(40px, 5vw, 80px) clamp(24px, 4vw, 64px);
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 21/9;
+        }
+
+        .editorial__hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 25%;
+        }
+
+        /* ══════════════════════════════════════════
+           CRAFT SECTION (About / Philosophy)
+           ══════════════════════════════════════════ */
+        .craft {
+            padding: clamp(80px, 12vw, 200px) clamp(24px, 4vw, 64px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(40px, 6vw, 120px);
+            align-items: center;
+        }
+
+        .craft__visual {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+        }
+
+        .craft__visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .craft__visual::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(245, 240, 234, 0.06);
+        }
+
+        .craft__content {
+            max-width: 520px;
+        }
+
+        .craft__label {
+            font-family: var(--font-body);
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 32px;
+        }
+
+        .craft__heading {
+            font-family: var(--font-display);
+            font-size: clamp(32px, 4vw, 56px);
+            font-weight: 300;
+            line-height: 1.15;
+            color: var(--bone);
+            margin-bottom: 32px;
+            letter-spacing: -0.01em;
+        }
+
+        .craft__heading em {
+            font-style: italic;
+            color: var(--sand);
+        }
+
+        .craft__text {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.85;
+            color: var(--warm-grey);
+            margin-bottom: 24px;
+        }
+
+        .craft__divider {
+            width: 48px;
+            height: 1px;
+            background: var(--concrete);
+            margin: 40px 0;
+        }
+
+        .craft__values {
+            display: flex;
+            gap: 48px;
+        }
+
+        .craft__value {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .craft__value-number {
+            font-family: var(--font-display);
+            font-size: 36px;
+            font-weight: 300;
+            color: var(--sand);
+        }
+
+        .craft__value-label {
+            font-family: var(--font-body);
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--stone);
+        }
+
+        /* ══════════════════════════════════════════
+           DESIGNER QUOTE / INTERLUDE
+           ══════════════════════════════════════════ */
+        .interlude {
+            padding: clamp(80px, 12vw, 180px) clamp(24px, 8vw, 200px);
+            text-align: center;
+            position: relative;
+        }
+
+        .interlude::before,
+        .interlude::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 60px;
+            background: var(--concrete);
+        }
+
+        .interlude::before { top: 0; }
+        .interlude::after { bottom: 0; }
+
+        .interlude__quote {
+            font-family: var(--font-display);
+            font-size: clamp(22px, 3.5vw, 48px);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.35;
+            color: var(--bone);
+            max-width: 800px;
+            margin: 0 auto 32px;
+        }
+
+        .interlude__attribution {
+            font-family: var(--font-body);
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--stone);
+        }
+
+        /* ══════════════════════════════════════════
+           NEWSLETTER
+           ══════════════════════════════════════════ */
+        .newsletter {
+            padding: clamp(80px, 10vw, 160px) clamp(24px, 4vw, 64px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            border-top: 1px solid var(--graphite);
+        }
+
+        .newsletter__label {
+            font-family: var(--font-body);
+            font-size: 10px;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 24px;
+        }
+
+        .newsletter__heading {
+            font-family: var(--font-display);
+            font-size: clamp(28px, 4vw, 52px);
+            font-weight: 300;
+            color: var(--bone);
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        .newsletter__subtext {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--warm-grey);
+            margin-bottom: 48px;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        .newsletter__form {
+            display: flex;
+            align-items: stretch;
+            max-width: 480px;
+            width: 100%;
+            border: 1px solid var(--concrete);
+            transition: border-color 0.4s ease;
+        }
+
+        .newsletter__form:focus-within {
+            border-color: var(--stone);
+        }
+
+        .newsletter__input {
+            flex: 1;
+            padding: 16px 20px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--cream);
+            letter-spacing: 0.05em;
+        }
+
+        .newsletter__input::placeholder {
+            color: var(--stone);
+            letter-spacing: 0.1em;
+        }
+
+        .newsletter__submit {
+            padding: 16px 28px;
+            font-family: var(--font-body);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--void);
+            background: var(--cream);
+            transition: background 0.3s ease, color 0.3s ease;
+            cursor: none;
+        }
+
+        .newsletter__submit:hover {
+            background: var(--sand);
+        }
+
+        /* ══════════════════════════════════════════
+           FOOTER
+           ══════════════════════════════════════════ */
+        .footer {
+            padding: 64px clamp(24px, 4vw, 64px) 32px;
+            border-top: 1px solid var(--graphite);
+        }
+
+        .footer__top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 80px;
+        }
+
+        .footer__brand-name {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--cream);
+            margin-bottom: 20px;
+        }
+
+        .footer__brand-desc {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--stone);
+            max-width: 280px;
+        }
+
+        .footer__col-title {
+            font-family: var(--font-body);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--warm-grey);
+            margin-bottom: 24px;
+        }
+
+        .footer__col-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .footer__col-links a {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--stone);
+            transition: color 0.3s ease;
+        }
+
+        .footer__col-links a:hover {
+            color: var(--cream);
+        }
+
+        .footer__bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 24px;
+            border-top: 1px solid var(--graphite);
+        }
+
+        .footer__copy {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--stone);
+            letter-spacing: 0.08em;
+        }
+
+        .footer__socials {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer__socials a {
+            color: var(--stone);
+            transition: color 0.3s ease;
+        }
+
+        .footer__socials a:hover {
+            color: var(--cream);
+        }
+
+        .footer__socials svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* ══════════════════════════════════════════
+           RESPONSIVE
+           ══════════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .collection__panel {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .craft {
+                grid-template-columns: 1fr;
+            }
+
+            .craft__visual {
+                max-height: 500px;
+            }
+
+            .footer__top {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --nav-height: 56px;
+            }
+
+            body {
+                cursor: auto;
+            }
+
+            .cursor, .cursor-trail {
+                display: none !important;
+            }
+
+            .nav__links {
+                display: none;
+            }
+
+            .nav__hamburger {
+                display: flex;
+            }
+
+            .collection__panel {
+                grid-template-columns: 1fr;
+                gap: 2px;
+            }
+
+            .product-card {
+                aspect-ratio: 3/4.2;
+            }
+
+            .product-card__overlay {
+                opacity: 1;
+            }
+
+            .product-card__info {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .editorial__grid {
+                grid-template-columns: 1fr;
+            }
+
+            .editorial__item--tall {
+                grid-row: span 1;
+            }
+
+            .editorial__hero {
+                aspect-ratio: 16/9;
+            }
+
+            .craft {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .craft__values {
+                gap: 32px;
+            }
+
+            .newsletter__form {
+                flex-direction: column;
+            }
+
+            .newsletter__submit {
+                padding: 16px;
+            }
+
+            .footer__top {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer__bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .collection__tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .collection__tab {
+                padding: 14px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero__title {
+                font-size: clamp(36px, 12vw, 56px);
+            }
+
+            .statement__text {
+                font-size: clamp(22px, 6vw, 36px);
+            }
+
+            .hero__scroll {
+                display: none;
+            }
+        }
+
+        /* ── Utility ── */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader__brand">Idealcraft Man</div>
+        <div class="loader__line"></div>
+    </div>
+
+    <!-- Grain Overlay -->
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+        <a href="#" class="nav__logo" data-cursor>Idealcraft Man</a>
+        <ul class="nav__links">
+            <li><a href="#collection" data-cursor>Collection</a></li>
+            <li><a href="#editorial" data-cursor>Lookbook</a></li>
+            <li><a href="#craft" data-cursor>Our Craft</a></li>
+            <li><a href="#newsletter" data-cursor>Contact</a></li>
+        </ul>
+        <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation menu" data-cursor>
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-menu__links">
+            <li><a href="#collection" data-mobile-link data-cursor>Collection</a></li>
+            <li><a href="#editorial" data-mobile-link data-cursor>Lookbook</a></li>
+            <li><a href="#craft" data-mobile-link data-cursor>Our Craft</a></li>
+            <li><a href="#newsletter" data-mobile-link data-cursor>Contact</a></li>
+            <li><a href="#" data-mobile-link data-cursor>Stockists</a></li>
+        </ul>
+    </div>
+
+    <!-- ════════════ HERO ════════════ -->
+    <section class="hero" id="hero">
+        <div class="hero__bg">
+            <img src="assets/images/01_black_male_tweed_set.PNG"
+                 alt="IDEALCRAFT MAN — Tweed Set in architectural concrete setting"
+                 loading="eager">
+        </div>
+        <div class="hero__overlay"></div>
+        <div class="hero__content">
+            <p class="hero__tag">Spring / Summer 2026 Collection</p>
+            <h1 class="hero__title">
+                <span><em>Constructed</em></span>
+                <span><em>Silhouettes</em></span>
+            </h1>
+            <p class="hero__subtitle">
+                Where brutalist architecture meets the precision of British tailoring.
+                Each piece, a dialogue between structure and movement.
+            </p>
+        </div>
+        <div class="hero__scroll" aria-hidden="true">
+            <span>Scroll</span>
+            <div class="hero__scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ════════════ BRAND STATEMENT ════════════ -->
+    <section class="statement">
+        <p class="statement__eyebrow reveal">The Philosophy</p>
+        <h2 class="statement__text reveal">
+            We don't follow seasons. We build <em>monuments to wear</em> —
+            garments that command the same reverence as the concrete forms they're photographed against.
+        </h2>
+        <div class="statement__line reveal-line"></div>
+    </section>
+
+    <!-- ════════════ COLLECTION ════════════ -->
+    <section class="collection" id="collection">
+        <div class="collection__header reveal">
+            <div class="collection__header-left">
+                <p class="section-label">SS26 Collection</p>
+                <h2 class="section-title">The <em>Collection</em></h2>
+            </div>
+            <p class="collection__header-right">12 Pieces</p>
+        </div>
+
+        <div class="collection__tabs reveal" role="tablist">
+            <button class="collection__tab active"
+                    data-tab="tweed"
+                    role="tab"
+                    aria-selected="true"
+                    data-cursor>Tweed Set</button>
+            <button class="collection__tab"
+                    data-tab="houndstooth"
+                    role="tab"
+                    aria-selected="false"
+                    data-cursor>Houndstooth Set</button>
+            <button class="collection__tab"
+                    data-tab="all"
+                    role="tab"
+                    aria-selected="false"
+                    data-cursor>View All</button>
+        </div>
+
+        <!-- Tweed Panel -->
+        <div class="collection__panel reveal-stagger" data-panel="tweed" role="tabpanel">
+            <article class="product-card" data-cursor>
+                <img src="assets/images/01_black_male_tweed_set.PNG"
+                     alt="Tweed Cropped Jacket and Wide Trouser — Charcoal" loading="lazy">
+                <div class="product-card__overlay"></div>
+                <div class="product-card__info">
+                    <h3 class="product-card__name">Tweed Cropped Jacket</h3>
+                    <p class="product-card__detail">Charcoal Herringbone Tweed</p>
+                    <p class="product-card__price">&pound;1,280</p>
+                </div>
+                <button class="product-card__cta" aria-label="Quick view">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+            </article>
+            <article class="product-card" data-cursor>
+                <img src="assets/images/03_black_female_tweed_set.PNG"
+                     alt="Women's Tweed Set — Rooftop Editorial" loading="lazy">
+                <div class="product-card__overlay"></div>
+                <div class="product-card__info">
+                    <h3 class="product-card__name">Tweed Volume Set</h3>
+                    <p class="product-card__detail">Stone Brown Tweed</p>
+                    <p class="product-card__price">&pound;1,450</p>
+                </div>
+                <button class="product-card__cta" aria-label="Quick view">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+            </article>
+            <article class="product-card" data-cursor>
+                <img src="assets/images/05_caucasian_male_tweed_set.PNG"
+                     alt="Men's Dark Tweed Set" loading="lazy">
+                <div class="product-card__overlay"></div>
+                <div class="product-card__info">
+                    <h3 class="product-card__name">Tweed Structured Set</h3>
+                    <p class="product-card__detail">Anthracite Tweed</p>
+                    <p class="product-card__price">&pound;1,380</p>
+                </div>
+                <button class="product-card__cta" aria-label="Quick view">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+            </article>
+            <article class="product-card" data-cursor>
+                <img src="assets/images/07_caucasian_female_tweed_set.PNG"
+                     alt="Women's Tweed Set" loading="lazy">
+                <div class="product-card__overlay"></div>
+                <div class="product-card__info">
+                    <h3 class="product-card__name">Tweed Drape Jacket</h3>
+                    <p class="product-card__detail">Heather Tweed</p>
+                    <p class="product-card__price">&pound;1,180</p>
+                </div>
+                <button class="product-card__cta" aria-label="Quick view">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+            </article>
+            <article class="product-card" data-cursor>
+                <img src="assets/images/09_mixed_race_male_tweed_set.PNG"
+                     alt="Men's Tweed Set" loading="lazy">
+                <div class="product-card__overlay"></div>
+                <div class="product-card__info">
+                    <h3 class="product-card__name">Tweed Deconstructed Blazer</h3>
+                    <p class="product-card__detail">Charcoal Melange Tweed</p>
+                    <p class="product-card__price">&pound;1,320</p>
+                </div>
+                <button class="product-card__cta" aria-label="Quick view">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+            </article>
+            <article class="product-card" data-cursor>
+                <img src="assets/images/11_mixed_race_female_tweed_set.PNG"
+                     alt="Women's Tweed Set" loading="lazy">
+                <div class="product-card__overlay"></div>
+                <div class="product-card__info">
+                    <h3 class="product-card__name">Tweed Cocoon Set</h3>
+                    <p class="product-card__detail">Taupe Tweed</p>
+                    <p class="product-card__price">&pound;1,480</p>
+                </div>
+                <button class="product-card__cta" aria-label="Quick view">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+            </article>
+        </div>
+
+        <!-- Houndstooth Panel -->
+        <div class="collection__panel" data-panel="houndstooth" role="tabpanel">
+            <article class="product-card" data-cursor>
+                <img src="assets/images/02_black_male_houndstooth_set.PNG"
+                     alt="Men's Houndstooth Jacket" loading="lazy">
+                <div class="product-card__overlay"></div>
+                <div class="product-card__info">
+                    <h3 class="product-card__name">Houndstooth Cropped Jacket</h3>
+                    <p class="product-card__detail">Black &amp; Ivory Houndstooth</p>
+                    <p class="product-card__price">&pound;1,350</p>
+                </div>
+                <button class="product-card__cta" aria-label="Quick view">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+            </article>
+            <article class="product-card" data-cursor>
+                <img src="assets/images/04_black_female_houndstooth_set.PNG"
+                     alt="Women's Houndstooth Set" loading="lazy">
+                <div class="product-card__overlay"></div>
+                <div class="product-card__info">
+                    <h3 class="product-card__name">Houndstooth Oversize Jacket</h3>
+                    <p class="product-card__detail">Tan Houndstooth Check</p>
+                    <p class="product-card__price">&pound;1,420</p>
+                </div>
+                <button class="product-card__cta" aria-label="Quick view">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+            </article>
+            <article class="product-card" data-cursor>
+                <img src="assets/images/06_caucasian_male_houndstooth_set.PNG"
+                     alt="Men's Houndstooth Set" loading="lazy">
+                <div class="product-card__overlay"></div>
+                <div class="product-card__info">
+                    <h3 class="product-card__name">Houndstooth Button Jacket</h3>
+                    <p class="product-card__detail">Grey Houndstooth</p>
+                    <p class="product-card__price">&pound;1,290</p>
+                </div>
+                <button class="product-card__cta" aria-label="Quick view">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+            </article>
+            <article class="product-card" data-cursor>
+                <img src="assets/images/08_caucasian_female_houndstooth_set.PNG"
+                     alt="Women's Houndstooth Set" loading="lazy">
+                <div class="product-card__overlay"></div>
+                <div class="product-card__info">
+                    <h3 class="product-card__name">Houndstooth Volume Set</h3>
+                    <p class="product-card__detail">Stone Houndstooth</p>
+                    <p class="product-card__price">&pound;1,520</p>
+                </div>
+                <button class="product-card__cta" aria-label="Quick view">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+            </article>
+            <article class="product-card" data-cursor>
+                <img src="assets/images/10_mixed_race_male_houndstooth_set.PNG"
+                     alt="Men's Houndstooth Set" loading="lazy">
+                <div class="product-card__overlay"></div>
+                <div class="product-card__info">
+                    <h3 class="product-card__name">Houndstooth Relaxed Jacket</h3>
+                    <p class="product-card__detail">Smoke Houndstooth</p>
+                    <p class="product-card__price">&pound;1,380</p>
+                </div>
+                <button class="product-card__cta" aria-label="Quick view">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+            </article>
+            <article class="product-card" data-cursor>
+                <img src="assets/images/12_mixed_race_female_houndstooth_set.PNG"
+                     alt="Women's Houndstooth Set" loading="lazy">
+                <div class="product-card__overlay"></div>
+                <div class="product-card__info">
+                    <h3 class="product-card__name">Houndstooth Draped Set</h3>
+                    <p class="product-card__detail">Ivory Houndstooth</p>
+                    <p class="product-card__price">&pound;1,460</p>
+                </div>
+                <button class="product-card__cta" aria-label="Quick view">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+            </article>
+        </div>
+    </section>
+
+    <!-- ════════════ DESIGNER QUOTE ════════════ -->
+    <section class="interlude">
+        <blockquote class="interlude__quote reveal">
+            "Fabric is architecture in motion. Every fold, every drape, every seam is a
+            decision about how a body occupies space."
+        </blockquote>
+        <p class="interlude__attribution reveal">— The Idealcraft Atelier</p>
+    </section>
+
+    <!-- ════════════ EDITORIAL / LOOKBOOK ════════════ -->
+    <section class="editorial" id="editorial">
+        <div class="editorial__header">
+            <p class="section-label reveal">SS26 Lookbook</p>
+            <h2 class="section-title reveal">The <em>Editorial</em></h2>
+        </div>
+
+        <div class="editorial__marquee-wrap" aria-hidden="true">
+            <div class="editorial__marquee">
+                <span>Tweed</span>
+                <span>&middot;</span>
+                <span>Houndstooth</span>
+                <span>&middot;</span>
+                <span>Constructed Silhouettes</span>
+                <span>&middot;</span>
+                <span>Brutalist Elegance</span>
+                <span>&middot;</span>
+                <span>Tweed</span>
+                <span>&middot;</span>
+                <span>Houndstooth</span>
+                <span>&middot;</span>
+                <span>Constructed Silhouettes</span>
+                <span>&middot;</span>
+                <span>Brutalist Elegance</span>
+                <span>&middot;</span>
+            </div>
+        </div>
+
+        <div class="editorial__grid reveal-stagger">
+            <div class="editorial__item editorial__item--tall" data-cursor>
+                <img src="assets/images/05_caucasian_male_tweed_set.PNG"
+                     alt="Editorial — Tweed in Concrete Corridor" loading="lazy">
+                <span class="editorial__item-label">Look 01 — Tweed</span>
+            </div>
+            <div class="editorial__item" data-cursor>
+                <img src="assets/images/04_black_female_houndstooth_set.PNG"
+                     alt="Editorial — Houndstooth on Brutalist Rooftop" loading="lazy">
+                <span class="editorial__item-label">Look 02 — Houndstooth</span>
+            </div>
+            <div class="editorial__item" data-cursor>
+                <img src="assets/images/06_caucasian_male_houndstooth_set.PNG"
+                     alt="Editorial — Houndstooth in Light" loading="lazy">
+                <span class="editorial__item-label">Look 03 — Houndstooth</span>
+            </div>
+        </div>
+
+        <div class="editorial__hero reveal" data-cursor>
+            <img src="assets/images/02_black_male_houndstooth_set.PNG"
+                 alt="IDEALCRAFT MAN — Full editorial shot, Houndstooth Set" loading="lazy">
+        </div>
+    </section>
+
+    <!-- ════════════ CRAFT / ABOUT ════════════ -->
+    <section class="craft" id="craft">
+        <div class="craft__visual reveal">
+            <img src="assets/images/test_shot.PNG"
+                 alt="IDEALCRAFT MAN — Behind the scenes, studio shot" loading="lazy">
+        </div>
+        <div class="craft__content">
+            <p class="craft__label reveal">Our Craft</p>
+            <h2 class="craft__heading reveal">
+                Born from the tension between <em>brutalism</em> and <em>elegance</em>
+            </h2>
+            <p class="craft__text reveal">
+                IDEALCRAFT MAN exists at the intersection of architectural structure and
+                the fluidity of the human form. Each collection is conceived not as clothing,
+                but as wearable architecture — where oversized volumes create space,
+                and heritage fabrics provide soul.
+            </p>
+            <p class="craft__text reveal">
+                Our tweed and houndstooth are sourced from heritage British mills,
+                then deconstructed and reimagined into silhouettes that challenge conventional
+                tailoring. The result: garments that feel simultaneously rooted in tradition
+                and radically forward.
+            </p>
+            <div class="craft__divider reveal-line"></div>
+            <div class="craft__values reveal-stagger">
+                <div class="craft__value">
+                    <span class="craft__value-number">12</span>
+                    <span class="craft__value-label">Pieces per drop</span>
+                </div>
+                <div class="craft__value">
+                    <span class="craft__value-number">2</span>
+                    <span class="craft__value-label">Heritage Fabrics</span>
+                </div>
+                <div class="craft__value">
+                    <span class="craft__value-number">1</span>
+                    <span class="craft__value-label">Uncompromising Vision</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════ NEWSLETTER ════════════ -->
+    <section class="newsletter" id="newsletter">
+        <p class="newsletter__label reveal">Stay Informed</p>
+        <h2 class="newsletter__heading reveal">Join the <em style="font-family: var(--font-display); font-style: italic;">Inner Circle</em></h2>
+        <p class="newsletter__subtext reveal">
+            Early access to collections, behind-the-scenes from the atelier,
+            and invitations to private viewings.
+        </p>
+        <form class="newsletter__form reveal" onsubmit="event.preventDefault(); this.querySelector('button').textContent = 'SUBSCRIBED'; this.querySelector('input').value = '';">
+            <input class="newsletter__input" type="email" placeholder="Your email address" required aria-label="Email address">
+            <button class="newsletter__submit" type="submit" data-cursor>Subscribe</button>
+        </form>
+    </section>
+
+    <!-- ════════════ FOOTER ════════════ -->
+    <footer class="footer">
+        <div class="footer__top">
+            <div>
+                <p class="footer__brand-name">Idealcraft Man</p>
+                <p class="footer__brand-desc">
+                    Architectural fashion for the modern individual.
+                    Constructed in London, worn worldwide.
+                </p>
+            </div>
+            <div>
+                <p class="footer__col-title">Collection</p>
+                <ul class="footer__col-links">
+                    <li><a href="#collection" data-cursor>Tweed Set</a></li>
+                    <li><a href="#collection" data-cursor>Houndstooth Set</a></li>
+                    <li><a href="#editorial" data-cursor>Lookbook SS26</a></li>
+                    <li><a href="#" data-cursor>Archive</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer__col-title">Information</p>
+                <ul class="footer__col-links">
+                    <li><a href="#craft" data-cursor>Our Story</a></li>
+                    <li><a href="#" data-cursor>Stockists</a></li>
+                    <li><a href="#" data-cursor>Sizing Guide</a></li>
+                    <li><a href="#" data-cursor>Care Instructions</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer__col-title">Customer Care</p>
+                <ul class="footer__col-links">
+                    <li><a href="#" data-cursor>Shipping &amp; Returns</a></li>
+                    <li><a href="#" data-cursor>Privacy Policy</a></li>
+                    <li><a href="#" data-cursor>Terms of Service</a></li>
+                    <li><a href="#newsletter" data-cursor>Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <p class="footer__copy">&copy; 2026 Idealcraft Man. All rights reserved.</p>
+            <div class="footer__socials">
+                <a href="#" aria-label="Instagram" data-cursor>
+                    <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+                </a>
+                <a href="#" aria-label="TikTok" data-cursor>
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.46V13a8.16 8.16 0 005.58 2.17v-3.44a4.85 4.85 0 01-3.15-1.18V6.69h3.15z"/></svg>
+                </a>
+                <a href="#" aria-label="Pinterest" data-cursor>
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0a12 12 0 00-4.37 23.17c-.1-.94-.2-2.38.04-3.41l1.4-5.93s-.36-.71-.36-1.77c0-1.66.96-2.89 2.16-2.89 1.02 0 1.51.77 1.51 1.68 0 1.03-.65 2.56-.99 3.98-.28 1.19.6 2.16 1.77 2.16 2.13 0 3.77-2.25 3.77-5.49 0-2.87-2.06-4.87-5.01-4.87-3.41 0-5.42 2.56-5.42 5.2 0 1.03.39 2.13.89 2.73.1.12.11.22.08.34l-.33 1.36c-.05.22-.18.27-.41.16-1.55-.72-2.52-2.98-2.52-4.8 0-3.91 2.84-7.5 8.18-7.5 4.3 0 7.63 3.06 7.63 7.14 0 4.27-2.69 7.7-6.43 7.7-1.25 0-2.43-.65-2.84-1.42l-.77 2.94c-.28 1.07-1.04 2.42-1.55 3.24A12 12 0 1012 0z"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ══════════════════════════════════════════
+         JAVASCRIPT
+         ══════════════════════════════════════════ -->
+    <script>
+        // ── Loading Screen ──
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('loaded');
+                // Trigger hero animation after loader fades
+                setTimeout(() => {
+                    document.getElementById('hero').classList.add('visible');
+                }, 300);
+            }, 1200);
+        });
+
+        // ── Custom Cursor ──
+        const cursor = document.getElementById('cursor');
+        const cursorTrail = document.getElementById('cursorTrail');
+        let mouseX = 0, mouseY = 0;
+        let trailX = 0, trailY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+        });
+
+        // Smooth trail follow
+        function animateTrail() {
+            trailX += (mouseX - trailX) * 0.12;
+            trailY += (mouseY - trailY) * 0.12;
+            cursorTrail.style.left = trailX + 'px';
+            cursorTrail.style.top = trailY + 'px';
+            requestAnimationFrame(animateTrail);
+        }
+        animateTrail();
+
+        // Cursor hover states
+        document.querySelectorAll('[data-cursor], a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('cursor--active');
+                cursorTrail.classList.add('cursor--active');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor--active');
+                cursorTrail.classList.remove('cursor--active');
+            });
+        });
+
+        // ── Navigation Scroll ──
+        const nav = document.getElementById('nav');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 80) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            lastScroll = currentScroll;
+        }, { passive: true });
+
+        // ── Mobile Menu ──
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        document.querySelectorAll('[data-mobile-link]').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ── Scroll Reveal (Intersection Observer) ──
+        const revealElements = document.querySelectorAll('.reveal, .reveal-line, .reveal-stagger');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -60px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ── Collection Tabs ──
+        const tabs = document.querySelectorAll('.collection__tab');
+        const panels = document.querySelectorAll('.collection__panel');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+
+                // Update active tab
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
+
+                // Show/hide panels with animation
+                panels.forEach(panel => {
+                    const panelName = panel.dataset.panel;
+
+                    if (target === 'all') {
+                        panel.style.display = 'grid';
+                        // Re-trigger stagger animation
+                        panel.classList.remove('visible');
+                        void panel.offsetWidth;
+                        panel.classList.add('visible');
+                    } else if (panelName === target) {
+                        panel.style.display = 'grid';
+                        panel.classList.remove('visible');
+                        void panel.offsetWidth;
+                        panel.classList.add('visible');
+                    } else {
+                        panel.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // ── Parallax on Hero Image ──
+        const heroImg = document.querySelector('.hero__bg img');
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            if (scrolled < window.innerHeight) {
+                const parallax = scrolled * 0.3;
+                heroImg.style.transform = `scale(1) translateY(${parallax}px)`;
+            }
+        }, { passive: true });
+
+        // ── Smooth scroll for anchor links ──
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // ── Image Lazy Loading with Fade ──
+        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+        lazyImages.forEach(img => {
+            img.style.opacity = '0';
+            img.style.transition = 'opacity 0.6s ease';
+            if (img.complete) {
+                img.style.opacity = '1';
+            } else {
+                img.addEventListener('load', () => {
+                    img.style.opacity = '1';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
