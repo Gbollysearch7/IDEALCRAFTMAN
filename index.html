@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>IDEALCRAFT MAN — Architectural Fashion</title>
     <meta name="description" content="IDEALCRAFT MAN — Luxury fashion house specializing in architectural silhouettes. Tweed & Houndstooth collections crafted for the modern individual.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -401,6 +404,7 @@
         .hero {
             position: relative;
             height: 100vh;
+            height: 100svh;
             min-height: 600px;
             display: flex;
             align-items: flex-end;
@@ -1434,6 +1438,8 @@
         /* ══════════════════════════════════════════
            RESPONSIVE
            ══════════════════════════════════════════ */
+
+        /* ── Tablet ── */
         @media (max-width: 1024px) {
             .collection__panel {
                 grid-template-columns: repeat(2, 1fr);
@@ -1450,13 +1456,19 @@
             .footer__top {
                 grid-template-columns: 1fr 1fr;
             }
+
+            .editorial__hero {
+                aspect-ratio: 16/9;
+            }
         }
 
+        /* ── Mobile ── */
         @media (max-width: 768px) {
             :root {
                 --nav-height: 56px;
             }
 
+            /* Kill custom cursor on touch */
             body {
                 cursor: auto;
             }
@@ -1465,21 +1477,109 @@
                 display: none !important;
             }
 
+            /* Navigation */
+            .nav {
+                padding: 0 20px;
+            }
+
+            .nav__logo {
+                font-size: 13px;
+                letter-spacing: 0.25em;
+            }
+
             .nav__links {
                 display: none;
             }
 
             .nav__hamburger {
                 display: flex;
+                min-width: 44px;
+                min-height: 44px;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Mobile menu touch targets */
+            .mobile-menu__links {
+                gap: 24px;
+            }
+
+            .mobile-menu__links a {
+                padding: 8px 0;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Hero */
+            .hero {
+                min-height: 100svh;
+            }
+
+            .hero__content {
+                padding: 24px 20px;
+                padding-bottom: 48px;
+                padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
+            }
+
+            .hero__tag {
+                font-size: 9px;
+                margin-bottom: 16px;
+            }
+
+            .hero__subtitle {
+                font-size: 12px;
+                line-height: 1.6;
+            }
+
+            .hero__scroll {
+                display: none;
+            }
+
+            /* Statement */
+            .statement {
+                padding: 64px 20px;
+            }
+
+            /* Collection */
+            .collection {
+                padding: 48px 0;
+            }
+
+            .collection__header {
+                padding: 0 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .collection__tabs {
+                padding: 0 20px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .collection__tabs::-webkit-scrollbar {
+                display: none;
+            }
+
+            .collection__tab {
+                padding: 14px 20px;
+                min-height: 44px;
+                white-space: nowrap;
             }
 
             .collection__panel {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
                 gap: 2px;
+                padding: 0 20px;
             }
 
             .product-card {
-                aspect-ratio: 3/4.2;
+                aspect-ratio: 3/4;
             }
 
             .product-card__overlay {
@@ -1489,10 +1589,49 @@
             .product-card__info {
                 opacity: 1;
                 transform: translateY(0);
+                padding: 16px;
+            }
+
+            .product-card__name {
+                font-size: 14px;
+            }
+
+            .product-card__detail {
+                font-size: 9px;
+            }
+
+            .product-card__price {
+                font-size: 12px;
+                margin-top: 6px;
+            }
+
+            .product-card__cta {
+                display: none;
+            }
+
+            /* Interlude */
+            .interlude {
+                padding: 64px 24px;
+            }
+
+            .interlude::before,
+            .interlude::after {
+                height: 40px;
+            }
+
+            /* Editorial */
+            .editorial {
+                padding: 48px 0;
+            }
+
+            .editorial__header {
+                padding: 0 20px;
             }
 
             .editorial__grid {
                 grid-template-columns: 1fr;
+                padding: 0 20px;
+                gap: 2px;
             }
 
             .editorial__item--tall {
@@ -1500,29 +1639,90 @@
             }
 
             .editorial__hero {
-                aspect-ratio: 16/9;
+                margin: 24px 20px;
+                aspect-ratio: 4/5;
             }
 
+            .editorial__marquee-wrap {
+                padding: 24px 0;
+            }
+
+            /* Craft */
             .craft {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 32px;
+                padding: 64px 20px;
+            }
+
+            .craft__visual {
+                max-height: 420px;
+            }
+
+            .craft__heading {
+                font-size: clamp(26px, 6vw, 36px);
+            }
+
+            .craft__text {
+                font-size: 13px;
+                line-height: 1.75;
             }
 
             .craft__values {
-                gap: 32px;
+                gap: 24px;
+            }
+
+            .craft__value-number {
+                font-size: 28px;
+            }
+
+            /* Reviews */
+            .reviews {
+                padding: 64px 20px;
+            }
+
+            .reviews__grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                gap: 48px;
+            }
+
+            .review-card__quote {
+                font-size: 18px;
+            }
+
+            /* Newsletter */
+            .newsletter {
+                padding: 64px 20px;
             }
 
             .newsletter__form {
                 flex-direction: column;
             }
 
+            .newsletter__input {
+                padding: 16px;
+                font-size: 16px; /* Prevents iOS zoom on focus */
+            }
+
             .newsletter__submit {
                 padding: 16px;
+                min-height: 48px;
+            }
+
+            /* Footer */
+            .footer {
+                padding: 48px 20px 24px;
+                padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
             }
 
             .footer__top {
-                grid-template-columns: 1fr;
-                gap: 40px;
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+                margin-bottom: 48px;
+            }
+
+            .footer__brand-desc {
+                font-size: 12px;
             }
 
             .footer__bottom {
@@ -1531,26 +1731,128 @@
                 text-align: center;
             }
 
-            .collection__tabs {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .collection__tab {
-                padding: 14px 20px;
+            .footer__socials a {
+                min-width: 44px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
 
+        /* ── Small phones ── */
         @media (max-width: 480px) {
             .hero__title {
                 font-size: clamp(36px, 12vw, 56px);
             }
 
             .statement__text {
-                font-size: clamp(22px, 6vw, 36px);
+                font-size: clamp(20px, 5.5vw, 32px);
             }
 
-            .hero__scroll {
+            .collection__panel {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .product-card {
+                aspect-ratio: 3/4;
+            }
+
+            .product-card__info {
+                padding: 20px;
+            }
+
+            .product-card__name {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: clamp(28px, 8vw, 48px);
+            }
+
+            .interlude__quote {
+                font-size: clamp(18px, 5vw, 28px);
+            }
+
+            .footer__top {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .editorial__hero {
+                aspect-ratio: 3/4;
+            }
+
+            .craft__values {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* ── Safe area support for notched phones ── */
+        @supports (padding: env(safe-area-inset-top)) {
+            .nav {
+                padding-top: env(safe-area-inset-top);
+            }
+
+            .hero {
+                min-height: calc(100svh);
+            }
+
+            .footer {
+                padding-bottom: calc(24px + env(safe-area-inset-bottom));
+            }
+        }
+
+        /* ── Reduced motion preference ── */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .hero__bg img {
+                transform: scale(1) !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+
+            .reveal-line {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+
+            .reveal-stagger > * {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ── Touch device optimizations ── */
+        @media (hover: none) and (pointer: coarse) {
+            .product-card__overlay {
+                opacity: 1;
+            }
+
+            .product-card__info {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .product-card__cta {
+                display: none;
+            }
+
+            .editorial__item-label {
+                opacity: 0.8;
+                transform: translateY(0);
+            }
+
+            .nav__links a::after {
                 display: none;
             }
         }
@@ -2084,179 +2386,243 @@
          JAVASCRIPT
          ══════════════════════════════════════════ -->
     <script>
-        // ── Loading Screen ──
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('loaded');
-                // Trigger hero animation after loader fades
+        (function() {
+            'use strict';
+
+            // ── Device Detection ──
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // ── Loading Screen ──
+            window.addEventListener('load', () => {
+                const delay = isMobile ? 800 : 1200;
                 setTimeout(() => {
-                    document.getElementById('hero').classList.add('visible');
-                }, 300);
-            }, 1200);
-        });
-
-        // ── Custom Cursor ──
-        const cursor = document.getElementById('cursor');
-        const cursorTrail = document.getElementById('cursorTrail');
-        let mouseX = 0, mouseY = 0;
-        let trailX = 0, trailY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            cursor.style.left = mouseX + 'px';
-            cursor.style.top = mouseY + 'px';
-        });
-
-        // Smooth trail follow
-        function animateTrail() {
-            trailX += (mouseX - trailX) * 0.12;
-            trailY += (mouseY - trailY) * 0.12;
-            cursorTrail.style.left = trailX + 'px';
-            cursorTrail.style.top = trailY + 'px';
-            requestAnimationFrame(animateTrail);
-        }
-        animateTrail();
-
-        // Cursor hover states
-        document.querySelectorAll('[data-cursor], a, button').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('cursor--active');
-                cursorTrail.classList.add('cursor--active');
+                    document.getElementById('loader').classList.add('loaded');
+                    setTimeout(() => {
+                        document.getElementById('hero').classList.add('visible');
+                    }, 300);
+                }, delay);
             });
-            el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('cursor--active');
-                cursorTrail.classList.remove('cursor--active');
-            });
-        });
 
-        // ── Navigation Scroll ──
-        const nav = document.getElementById('nav');
-        let lastScroll = 0;
+            // ── Custom Cursor (desktop only) ──
+            if (!isTouch) {
+                const cursor = document.getElementById('cursor');
+                const cursorTrail = document.getElementById('cursorTrail');
+                let mouseX = 0, mouseY = 0;
+                let trailX = 0, trailY = 0;
 
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            if (currentScroll > 80) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    cursor.style.left = mouseX + 'px';
+                    cursor.style.top = mouseY + 'px';
+                });
+
+                function animateTrail() {
+                    trailX += (mouseX - trailX) * 0.12;
+                    trailY += (mouseY - trailY) * 0.12;
+                    cursorTrail.style.left = trailX + 'px';
+                    cursorTrail.style.top = trailY + 'px';
+                    requestAnimationFrame(animateTrail);
+                }
+                animateTrail();
+
+                document.querySelectorAll('[data-cursor], a, button').forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursor.classList.add('cursor--active');
+                        cursorTrail.classList.add('cursor--active');
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        cursor.classList.remove('cursor--active');
+                        cursorTrail.classList.remove('cursor--active');
+                    });
+                });
             }
-            lastScroll = currentScroll;
-        }, { passive: true });
 
-        // ── Mobile Menu ──
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
+            // ── Navigation Scroll (throttled) ──
+            const nav = document.getElementById('nav');
+            let ticking = false;
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-        });
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        const currentScroll = window.pageYOffset;
+                        if (currentScroll > 80) {
+                            nav.classList.add('scrolled');
+                        } else {
+                            nav.classList.remove('scrolled');
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
 
-        document.querySelectorAll('[data-mobile-link]').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
+            // ── Mobile Menu ──
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
 
-        // ── Scroll Reveal (Intersection Observer) ──
-        const revealElements = document.querySelectorAll('.reveal, .reveal-line, .reveal-stagger');
-
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    revealObserver.unobserve(entry.target);
+            hamburger.addEventListener('click', () => {
+                const isOpen = hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                // Prevent body scroll when menu is open
+                if (isOpen) {
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.position = 'fixed';
+                    document.body.style.width = '100%';
+                    document.body.style.top = `-${window.pageYOffset}px`;
+                } else {
+                    const scrollY = document.body.style.top;
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    document.body.style.width = '';
+                    document.body.style.top = '';
+                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
                 }
             });
-        }, {
-            threshold: 0.15,
-            rootMargin: '0px 0px -60px 0px'
-        });
 
-        revealElements.forEach(el => revealObserver.observe(el));
-
-        // ── Collection Tabs ──
-        const tabs = document.querySelectorAll('.collection__tab');
-        const panels = document.querySelectorAll('.collection__panel');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = tab.dataset.tab;
-
-                // Update active tab
-                tabs.forEach(t => {
-                    t.classList.remove('active');
-                    t.setAttribute('aria-selected', 'false');
+            document.querySelectorAll('[data-mobile-link]').forEach(link => {
+                link.addEventListener('click', () => {
+                    const scrollY = document.body.style.top;
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    document.body.style.width = '';
+                    document.body.style.top = '';
+                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
                 });
-                tab.classList.add('active');
-                tab.setAttribute('aria-selected', 'true');
+            });
 
-                // Show/hide panels with animation
-                panels.forEach(panel => {
-                    const panelName = panel.dataset.panel;
+            // ── Scroll Reveal (Intersection Observer) ──
+            const revealElements = document.querySelectorAll('.reveal, .reveal-line, .reveal-stagger');
 
-                    if (target === 'all') {
-                        panel.style.display = 'grid';
-                        // Re-trigger stagger animation
-                        panel.classList.remove('visible');
-                        void panel.offsetWidth;
-                        panel.classList.add('visible');
-                    } else if (panelName === target) {
-                        panel.style.display = 'grid';
-                        panel.classList.remove('visible');
-                        void panel.offsetWidth;
-                        panel.classList.add('visible');
-                    } else {
-                        panel.style.display = 'none';
+            if (prefersReducedMotion) {
+                // Show everything immediately
+                revealElements.forEach(el => el.classList.add('visible'));
+            } else {
+                const revealObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            revealObserver.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: isMobile ? 0.08 : 0.15,
+                    rootMargin: isMobile ? '0px 0px -30px 0px' : '0px 0px -60px 0px'
+                });
+
+                revealElements.forEach(el => revealObserver.observe(el));
+            }
+
+            // ── Collection Tabs ──
+            const tabs = document.querySelectorAll('.collection__tab');
+            const panels = document.querySelectorAll('.collection__panel');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.dataset.tab;
+
+                    tabs.forEach(t => {
+                        t.classList.remove('active');
+                        t.setAttribute('aria-selected', 'false');
+                    });
+                    tab.classList.add('active');
+                    tab.setAttribute('aria-selected', 'true');
+
+                    panels.forEach(panel => {
+                        const panelName = panel.dataset.panel;
+
+                        if (target === 'all') {
+                            panel.style.display = 'grid';
+                            panel.classList.remove('visible');
+                            void panel.offsetWidth;
+                            panel.classList.add('visible');
+                        } else if (panelName === target) {
+                            panel.style.display = 'grid';
+                            panel.classList.remove('visible');
+                            void panel.offsetWidth;
+                            panel.classList.add('visible');
+                        } else {
+                            panel.style.display = 'none';
+                        }
+                    });
+
+                    // On mobile, scroll to the grid after tab switch
+                    if (isMobile) {
+                        const grid = document.querySelector('.collection__panel[style*="grid"]') ||
+                                     document.querySelector('.collection__panel');
+                        if (grid) {
+                            setTimeout(() => {
+                                grid.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }, 100);
+                        }
                     }
                 });
             });
-        });
 
-        // ── Parallax on Hero Image ──
-        const heroImg = document.querySelector('.hero__bg img');
+            // ── Parallax on Hero Image (desktop only) ──
+            if (!isMobile && !prefersReducedMotion) {
+                const heroImg = document.querySelector('.hero__bg img');
+                let parallaxTicking = false;
 
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            if (scrolled < window.innerHeight) {
-                const parallax = scrolled * 0.3;
-                heroImg.style.transform = `scale(1) translateY(${parallax}px)`;
+                window.addEventListener('scroll', () => {
+                    if (!parallaxTicking) {
+                        requestAnimationFrame(() => {
+                            const scrolled = window.pageYOffset;
+                            if (scrolled < window.innerHeight) {
+                                heroImg.style.transform = `scale(1) translateY(${scrolled * 0.3}px)`;
+                            }
+                            parallaxTicking = false;
+                        });
+                        parallaxTicking = true;
+                    }
+                }, { passive: true });
             }
-        }, { passive: true });
 
-        // ── Smooth scroll for anchor links ──
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const offset = 80;
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
+            // ── Smooth scroll for anchor links ──
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const offset = isMobile ? 56 : 80;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // ── Image Lazy Loading with Fade ──
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            lazyImages.forEach(img => {
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.6s ease';
+                if (img.complete) {
+                    img.style.opacity = '1';
+                } else {
+                    img.addEventListener('load', () => {
+                        img.style.opacity = '1';
                     });
                 }
             });
-        });
 
-        // ── Image Lazy Loading with Fade ──
-        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-        lazyImages.forEach(img => {
-            img.style.opacity = '0';
-            img.style.transition = 'opacity 0.6s ease';
-            if (img.complete) {
-                img.style.opacity = '1';
-            } else {
-                img.addEventListener('load', () => {
-                    img.style.opacity = '1';
-                });
+            // ── Fix iOS 100vh issue ──
+            function setVH() {
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
             }
-        });
+            setVH();
+            window.addEventListener('resize', setVH);
+
+        })();
     </script>
 </body>
 </html>
